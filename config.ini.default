@@ -3,6 +3,7 @@
 [secret]
 ip_domoticz=
 port=
+
 [feedback]
 enable=false
 

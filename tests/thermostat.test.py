@@ -26,8 +26,8 @@ THERMOSTAT       = 'ericvde31830:thermostat'
 def open_thermostat(config):
     ip = config.get(
         'secret', {
-            "ip": "192.168.0.160"}).get(
-        'ip', '192.168.0.160')
+            "ip_domoticz": "192.168.0.160"}).get(
+        'ip_domoticz', '192.168.0.160')
     port = config.get(
         'secret', {
             "port": "8080"}).get(
