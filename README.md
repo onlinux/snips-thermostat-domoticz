@@ -1,7 +1,6 @@
 # Snips Smart Virtual Thermostat Domoticz TTS action
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/snipsco/snips-skill-owm/master/LICENSE.txt)
 
-<img class="wp-image-461 size-full" src="/images/thermostat_variables.png" alt=" Zibase Thermostat Variables" />
 
 ### Configuration
 Enter the local ip address and port of your domoticz server within config.ini
