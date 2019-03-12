@@ -23,7 +23,7 @@ then
         fi
     fi
 
-    source $VENV/bin/activate
+    . $VENV/bin/activate
 
     pip3 install -r requirements.txt
 else
