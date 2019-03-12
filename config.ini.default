@@ -1,15 +1,8 @@
 [global]
-tempvariable= 28
-setpointdayvariable= 29
-setpointnightvariable= 30
-modevariable= 31
-statevariable= 13
-thermostatscenario= 30
-thermostatprobeid = 13
 
 [secret]
-ip_zibase=192.168.0.100
-
+ip_domoticz=
+port=
 [feedback]
 enable=false
 
