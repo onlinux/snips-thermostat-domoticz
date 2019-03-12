@@ -1,0 +1,32 @@
+[global]
+tempvariable= 28
+setpointdayvariable= 29
+setpointnightvariable= 30
+modevariable= 31
+statevariable= 13
+thermostatscenario= 30
+thermostatprobeid = 13
+
+[secret]
+ip_zibase=192.168.0.100
+
+[feedback]
+enable=false
+
+[loggers]
+keys=root
+
+[handlers]
+keys=consoleHandler
+
+[formatters]
+keys=
+
+[logger_root]
+level=INFO
+handlers=consoleHandler
+
+[handler_consoleHandler]
+class=StreamHandler
+level=DEBUG
+args=(sys.stdout,)
