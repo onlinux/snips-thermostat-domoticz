@@ -156,7 +156,7 @@ def intent_received(hermes, intent_message):
                         if thermostat.state == 'automatique' and mode == 'nuit':
                             sentence = "Nous sommes en mode économique, je passe donc en mode forcé".format(
                                 mode)
-                            thermostat.state = 'forced'
+                            thermostat.state = 'forcé'
 
                     logger.debug("After action-> state: {} , mode: {}".format(
                         thermostat.state, thermostat.mode))
