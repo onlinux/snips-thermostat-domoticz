@@ -25,11 +25,11 @@ MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 THERMOSTAT       = 'ericvde31830:thermostat'
 def open_thermostat(config):
     ip = config.get(
-        'secret', {
+        'global', {
             "ip_domoticz": "192.168.0.160"}).get(
         'ip_domoticz', '192.168.0.160')
     port = config.get(
-        'secret', {
+        'global', {
             "port": "8080"}).get(
         'port', '8080')
 

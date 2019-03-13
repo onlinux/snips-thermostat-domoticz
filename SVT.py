@@ -4,8 +4,8 @@
 # Author: Eric Vandecasteele 2019
 # http://blog.onlinux.fr
 #
-# Smart Virtual Thermostat python plugin for Domoticz
-# is provided by Logread. Many thanks to him!
+# Smart Virtual Thermostat python plugin for Domoticz is provided
+# by Logread. Many thanks to him!
 # SVT Domoticz repository : https://github.com/999LV/SmartVirtualThermostat.git
 #
 # Import required Python libraries
@@ -33,6 +33,8 @@ logger.addHandler(ch)
 
 class Constants:
     mode = {
+    # Important! do not set 0  as 'stop' otherwise it will override control 'stop' mode
+    # and it won't stop the thermostat!
         0: 'Off',
         10: 'jour',
         20: 'nuit'
@@ -45,6 +47,7 @@ class Constants:
     }
 
     switchState = {
+    # Important! case sensitive On and Off for switch
         0: 'Off',
         1: 'On'
     }

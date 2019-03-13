@@ -22,7 +22,6 @@ MQTT_IP_ADDR = "localhost"
 MQTT_PORT = 1883
 MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
-THERMOSTATSET = 'ericvde31830:ThermostatSet'
 THERMOSTATSHIFT = 'ericvde31830:thermostatShift'
 THERMOSTATTURNOFF = 'ericvde31830:thermostatTurnOff'
 THERMOSTATMODE = 'ericvde31830:thermostatMode'
@@ -37,15 +36,17 @@ logger = logging.getLogger(__name__)
 
 
 def open_thermostat(config):
+    # Set my own lan domoticz server ip address as default
     ip = config.get(
-        'secret', {
+        'global', {
             "ip_domoticz": "192.168.0.160"}).get(
         'ip_domoticz', '192.168.0.160')
+    # Set my own  domoticz server port as default : 8080
     port = config.get(
-        'secret', {
+        'global', {
             "port": "8080"}).get(
         'port', '8080')
-
+    # Initialize the all stuff
     thermostat = SVT(ip, port)
 
     logger.debug(" UrlBase domoticz:{}:{}".format(ip, port))
@@ -83,11 +84,13 @@ def intent_received(hermes, intent_message):
                            value in Constants.control.items()}
 
             if tmode in inv_mode:
+                # mode is 'jour' or 'nuit'
                 if thermostat.state != 'automatique':
                     thermostat.state = 'automatique'
                 logger.debug(inv_mode)
                 thermostat.mode = inv_mode[tmode]
             elif tmode in inv_control:
+                # 'automatique' or 'forcé' or 'stop'
                 logger.debug(inv_control)
                 thermostat.state = tmode
             else:

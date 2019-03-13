@@ -1,8 +1,8 @@
 [global]
-
-[secret]
 ip_domoticz=
 port=8080
+
+[secret]
 
 [feedback]
 enable=false
