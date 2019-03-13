@@ -2,7 +2,7 @@
 
 [secret]
 ip_domoticz=
-port=
+port=8080
 
 [feedback]
 enable=false

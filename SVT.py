@@ -4,6 +4,9 @@
 # Author: Eric Vandecasteele 2019
 # http://blog.onlinux.fr
 #
+# Smart Virtual Thermostat python plugin for Domoticz
+# is provided by Logread. Many thanks to him!
+# SVT Domoticz repository : https://github.com/999LV/SmartVirtualThermostat.git
 #
 # Import required Python libraries
 import logging
