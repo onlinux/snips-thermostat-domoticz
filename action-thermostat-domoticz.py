@@ -118,14 +118,18 @@ def intent_received(hermes, intent_message):
 
                 setPoint = None
                 mode = thermostat.mode
+                state = thermostat.state
                 logger.debug("statut: {}, Mode: {}, Action: {}".format(
-                    thermostat.state, mode, action
+                    state, mode, action
                 ))
                 if mode == 'Off':
                     sentence = "Désolée mais nous sommes en mode {}. Je ne fais rien dans ce cas.".format(
                         mode)
                 elif action == 'down':
-                    if mode == 'jour':
+                    if state == 'forcé' or state == 'stop':
+                        thermostat.state = 'automatique'
+
+                    elif mode == 'jour':
                         # Need to use the setpoint variable, because domotics takes
                         # a while to update its setpoint
                         setpoint = float(thermostat.setpointNormal) - 0.1
@@ -139,7 +143,7 @@ def intent_received(hermes, intent_message):
                         setpoint = float(thermostat.setpointEconomy) - 0.1
                         thermostat.setpointEconomy = setpoint
                         setPoint = str(setpoint).replace('.', ',')
-                        sentence = "Nous sommes en mode {} économique, je descends donc la consigne de nuit à {} degrés.".format(
+                        sentence = "Nous sommes en mode {}, je descends donc la consigne de nuit à {} degrés.".format(
                             mode, setPoint)
 
                 elif action == "up":

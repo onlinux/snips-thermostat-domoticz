@@ -33,8 +33,8 @@ logger.addHandler(ch)
 
 class Constants:
     mode = {
-    # Important! do not set 0  as 'stop' otherwise it will override control 'stop' mode
-    # and it won't stop the thermostat!
+        # Important! do not set 0  as 'stop' otherwise it will override control 'stop' mode
+        # and it won't stop the thermostat!
         0: 'Off',
         10: 'jour',
         20: 'nuit'
@@ -47,7 +47,7 @@ class Constants:
     }
 
     switchState = {
-    # Important! case sensitive On and Off for switch
+        # Important! case sensitive On and Off for switch
         0: 'Off',
         1: 'On'
     }
@@ -89,10 +89,12 @@ class SVT:
                             "SVT - Thermostat Pause idx: {}".format(idx))
                     elif device["Name"] == "SVT - Thermostat Mode":
                         self.modeId = idx
-                        logger.debug("SVT - Thermostat Mode idx: {}".format(idx))
+                        logger.debug(
+                            "SVT - Thermostat Mode idx: {}".format(idx))
 
         # Looking for SVT Setpoints
-        devicesAPI = self.DomoticzAPI("type=devices&filter=utility&used=true&order=Name")
+        devicesAPI = self.DomoticzAPI(
+            "type=devices&filter=utility&used=true&order=Name")
         if devicesAPI:
             for device in devicesAPI["result"]:  # parse the switch device
                 idx = int(device["idx"])
@@ -275,6 +277,39 @@ class SVT:
         if isinstance(v, int) or isinstance(v, float):
             self.DomoticzAPI(
                 "type=command&param=setsetpoint&idx={}&setpoint={}".format(self.setpointEconomyId, v))
+
+    @property
+    def isOn(self):
+        devicesAPI = self.DomoticzAPI(
+            "type=devices&rid={}".format(self.switchId))
+        if devicesAPI:
+            res = devicesAPI["result"][0]
+            if 'Status' in res:
+                level = res['Status']
+                return level == 'On'
+
+    @property
+    def isNight(self):
+        """ Whether the Mode is night mode
+
+            :rtype: bool
+        """
+        return self.mode == 'nuit'
+
+    @property
+    def isDay(self):
+        """ Whether the runningMode is Day mode
+
+            :rtype: bool
+        """
+        return not self.isNight
+
+    def getProbes(self):
+        logger.debug("getProbes")
+        devicesAPI = self.DomoticzAPI(
+            "type=devices&filter=temp&used=true&order=ID")
+        if devicesAPI:
+            return devicesAPI["result"]
 
     def DomoticzAPI(self, APICall):
         resultJson = None
