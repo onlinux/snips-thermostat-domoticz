@@ -132,7 +132,7 @@ def intent_received(hermes, intent_message):
                     elif mode == 'jour':
                         # Need to use the setpoint variable, because domotics takes
                         # a while to update its setpoint
-                        setpoint = float(thermostat.setpointNormal) - 0.1
+                        setpoint = round( float(thermostat.setpointNormal) - 0.1, 1)
                         thermostat.setpointNormal = setpoint
                         setPoint = str(setpoint).replace('.', ',')
                         sentence = "Nous sommes en mode {}, je descends donc la consigne de jour à {} degrés.".format(
@@ -140,7 +140,7 @@ def intent_received(hermes, intent_message):
                     else:
                         # Need to use the setpoint variable, because domotics takes
                         # a while to update its setpoint
-                        setpoint = float(thermostat.setpointEconomy) - 0.1
+                        setpoint = round( float(thermostat.setpointEconomy) - 0.1, 1)
                         thermostat.setpointEconomy = setpoint
                         setPoint = str(setpoint).replace('.', ',')
                         sentence = "Nous sommes en mode {}, je descends donc la consigne de nuit à {} degrés.".format(
@@ -150,7 +150,7 @@ def intent_received(hermes, intent_message):
                     if 'jour' in mode:
                         # Need to use the setpoint variable, because domotics takes
                         # a while to update its setpoint
-                        setpoint = float(thermostat.setpointNormal) + 0.1
+                        setpoint = round( float(thermostat.setpointNormal) + 0.1, 1)
                         thermostat.setpointNormal = setpoint
                         setPoint = str(
                             setpoint).replace('.', ',')
