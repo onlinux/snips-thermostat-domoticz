@@ -122,6 +122,7 @@ def intent_received(hermes, intent_message):
                 logger.debug("statut: {}, Mode: {}, Action: {}".format(
                     state, mode, action
                 ))
+
                 if mode == 'Off':
                     sentence = "Désolée mais nous sommes en mode {}. Je ne fais rien dans ce cas.".format(
                         mode)
@@ -132,7 +133,8 @@ def intent_received(hermes, intent_message):
                     elif mode == 'jour':
                         # Need to use the setpoint variable, because domotics takes
                         # a while to update its setpoint
-                        setpoint = round( float(thermostat.setpointNormal) - 0.1, 1)
+                        setpoint = round(
+                            float(thermostat.setpointNormal) - 0.1, 1)
                         thermostat.setpointNormal = setpoint
                         setPoint = str(setpoint).replace('.', ',')
                         sentence = "Nous sommes en mode {}, je descends donc la consigne de jour à {} degrés.".format(
@@ -140,17 +142,23 @@ def intent_received(hermes, intent_message):
                     else:
                         # Need to use the setpoint variable, because domotics takes
                         # a while to update its setpoint
-                        setpoint = round( float(thermostat.setpointEconomy) - 0.1, 1)
+                        setpoint = round(
+                            float(thermostat.setpointEconomy) - 0.1, 1)
                         thermostat.setpointEconomy = setpoint
                         setPoint = str(setpoint).replace('.', ',')
                         sentence = "Nous sommes en mode {}, je descends donc la consigne de nuit à {} degrés.".format(
                             mode, setPoint)
 
                 elif action == "up":
-                    if 'jour' in mode:
+                    if state == 'stop':
+                        thermostat.state = 'automatique'
+                        sentence = "Le thermostat est arrêté, je le passe donc en mode automatique."
+
+                    elif 'jour' in mode:
                         # Need to use the setpoint variable, because domotics takes
                         # a while to update its setpoint
-                        setpoint = round( float(thermostat.setpointNormal) + 0.1, 1)
+                        setpoint = round(
+                            float(thermostat.setpointNormal) + 0.1, 1)
                         thermostat.setpointNormal = setpoint
                         setPoint = str(
                             setpoint).replace('.', ',')
